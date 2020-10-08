@@ -1,0 +1,78 @@
+1. To check if the docker is installed on the system (docker --version)
+
+2. 192.168.99.100 (IP for windows 10 users)(check check the ip with the below command)
+docker-machine ip
+
+3. docker registry (public) hub.docker.com
+3.5 Need to map the host port with the container port while running (docker run -p 5000:5000 in28min/todo-rest-api-h2:1.0.0.RELEASE) 
+	And for the detached mode ((docker run -p 5000:5000 -d in28min/todo-rest-api-h2:1.0.0.RELEASE) )
+	In detach mode, no logs would be shown, and ctrl+c won't kill the running container
+otherwise container would not be accessible
+
+4. To check the images present on the system (docker images)
+5. To check the running containers on the system (docker container ls)
+6. To check all the containers on the system (docker container ls -a)
+7. To check a tmp folder inside a container (docker container exec 00defje ls /tmp)
+8. to download jdk image (docker run openjdk:8-jdk-alpine)
+8. to copy a jar from one location to inside a container's folder (docker container cp target/hello-world-rest-api.jar 00d:/tmp)
+9. to commit for creating a new image from container (docker container commit --change='CMD ["java","-jar","/tmp/hello-world-rest-api.jar"]' 00d in28min/hello-world-rest-api:manual2)
+10. to create image through docker file. (cd to that location, docker build -t in28min/hello-world-rest-api:dockerfile1 .)
+
+
+
+1. Service
+pom.xml:
+FROM openjdk:8-jdk-alpine
+EXPOSE 8080
+ADD target/*.jar app.jar
+ENTRYPOINT ["sh","-c","java -jar /app.jar"]
+
+2. web application (war)
+credentails:
+in28minutes
+dummy
+
+FOr mysql:
+docker run --detach --env MYSQL_ROOT_PASSWORD=dummypassword --env MYSQL_USER=todos-user --env MYSQL_PASSWORD=dummytodos --env MYSQL_DATABASE=todos --name mysql --publish 3306:3306 mysql:5.7.31
+ to connect mysqlsh (mysql client) with mysql : \connect todos-user@localhost:3306
+For application to connect with mysql, need to run with the below command
+
+docker container run -p 8080:8080 --link=mysql -e RDS_HOSTNAME=mysql  in28min/todo-web-application-mysql:0.0.1-SNAPSHOT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Image: A static template, a set of bytes
+Container: Running version of your image
+
+
+#Personal tenant
+50.50.1.2	applitest.dictao.com dacs dacs_fraudmanager fraudmanager  
+50.50.1.5   oraclesrv.dictao.com    
+50.50.1.4	dxsdev49.dictao.com dxsdev49 dxs d2s dvs
+50.50.1.7	ccmid 
